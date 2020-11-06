@@ -11,12 +11,24 @@ router.get('/', (req, res) => {
     res.send('I am auth Provider hello hello hello robert kiyosaki here.')
 });
 
-router.post('/idtoken', async (req, res) => {
+router.post('/idToken', async (req, res) => {
     const {idToken} = req.body;
 
     const token = await firebaseAdmin.auth().verifyIdToken(idToken);
 
-    res.status(200).json(token)
+    User.findOne({uid: token.uid, email: token.email},(error,doc)=>{
+        if (error){
+            console.log(error);
+            res.status(500).json({
+                message: 'We encountered an error.'
+            })
+        }else {
+            res.status(200).json({
+                token: token,
+                user: doc
+            })
+        }
+    })
 })
 
 router.post('/new/user',(req, res) => {
