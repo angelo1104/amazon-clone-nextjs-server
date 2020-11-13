@@ -120,4 +120,37 @@ router.delete('/delete/user',(req, res) => {
     })
 })
 
+
+router.put('/make/seller', (req, res) => {
+    const {sellerData, sellerFilter} = req.body;
+
+    User.findOneAndUpdate(sellerFilter, {seller:true ,...sellerData}, (err, seller)=>{
+        if (err){
+            console.log(err)
+            res.status(500).json({
+                message: 'We encountered an error.'
+            })
+        }else if (!seller){
+            res.status(404).json({
+                message: 'No such user registered yet.'
+            })
+        }else {
+            User.findOne(sellerFilter,(err, user)=>{
+                if (err){
+                    console.log(err)
+                    res.status(500).json({
+                        message: 'We encountered an error.'
+                    })
+                }else if (!user){
+                    res.status(404).json({
+                        message: 'Internal server error'
+                    })
+                }else {
+                    res.status(200).json(user)
+                }
+            })
+        }
+    })
+})
+
 export default router;
