@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
     state: String,
     address: String,
     zip: String,
+    accountID: String,
 });
 
 const User = mongoose.model('users',userSchema);
