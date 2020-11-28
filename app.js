@@ -8,6 +8,7 @@ import bodyParser from 'body-parser'
 import authRouter from "./Routes/auth.js";
 import stripeRouter from './Routes/stripe.js';
 import productsRouter from './Routes/products.js'
+import db from './mongoDB/connection.js'
 
 //app define
 const port = process.env.PORT || 3001
@@ -17,8 +18,6 @@ const app = express();
 mongoose.connect(process.env.MONGOOSE_URL, {useNewUrlParser: true, useUnifiedTopology:true},(error)=>{
     console.log('Error in MongoDB --->',error)
 })
-
-const db = mongoose.connection;
 
 db.once('open',()=>{
     console.log('MongoDB connected to the remote db.')

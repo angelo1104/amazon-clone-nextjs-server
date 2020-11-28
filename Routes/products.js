@@ -4,6 +4,8 @@ dotenv.config();
 //imports
 import express from 'express';
 import Product from "../mongoDB/Product.js";
+import db from "../mongoDB/connection.js";
+import client from "../algolia/algolia.js";
 
 
 //router
@@ -15,7 +17,65 @@ const router = express.Router();
 
 
 //mongodb stuff
+db.once('open',()=>{
+    const productCollection = db.collection('products');
 
+    const changeStream = productCollection.watch();
+
+    changeStream.on('change', (change)=>{
+        const index = client.initIndex('amazon_products')
+
+        if (change.operationType === 'insert'){
+            //do create stuff
+
+            // get id of product by change.documentKey._id
+            // get product by change.fullDocument
+
+            const product = change.fullDocument;
+
+            index.saveObject({...product, objectID: product._id})
+                .then((object)=>{
+                    console.log(object)
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+
+        }else if (change.operationType === 'update'){
+            //do update stuff
+
+            // get id of product by change.documentKey._id
+            // get updated fields by change.updateDescription.updatedFields
+            const updatedFields = change.updateDescription.updatedFields;
+
+            const productID = change.documentKey._id;
+
+            index.partialUpdateObject({...updatedFields, objectID: productID},{
+                createIfNotExists: false
+            })
+                .then((object)=>{
+                    console.log(object)
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
+
+        }else if (change.operationType === 'delete'){
+            //do delete stuff
+
+            // get id of product by change.documentKey._id
+            const objectID = change.documentKey._id;
+
+            index.deleteObject(objectID.toString())
+                .then((object)=>{
+                    console.log(object)
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+        }
+    })
+})
 
 
 
