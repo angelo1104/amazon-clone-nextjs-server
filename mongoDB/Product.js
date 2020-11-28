@@ -1,27 +1,26 @@
 import mongoose from 'mongoose';
 
 const productSchema = mongoose.Schema({
-    owner: {
-        name: String,
-        email: String,
-        uid: String,
-    },
+    ownerName: String,
+    ownerEmail: String,
+    ownerUid: String,
     helpers: [
         {
             name: String,
             email: String
         }
     ],
-    product: {
-        name: String,
-        description: String
-    },
-    assets: {
-        aboutImages: [String],
-        thumbnail: [String]
-    },
     address: String,
-    status: String
+    status: String,
+    brand:  String,
+    productName: String,
+    shortDescription: String,
+    description: String,
+    thumbnail: String,
+    images: [{
+        id: String,
+        url: String,
+    }],
 });
 
 

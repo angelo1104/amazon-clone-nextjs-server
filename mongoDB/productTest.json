@@ -1,0 +1,22 @@
+{
+  "ownerName": "Jane",
+  "ownerEmail": "jane@email.com",
+  "ownerUid": "123",
+  "helpers": [
+    {
+      "name": "Angelo",
+      "email": "angelo@email.com"
+    }
+  ],
+  "address": "125 Cup Tea",
+  "status": "LIVE",
+  "brand":  "Nintendo",
+  "productName": "Pokemon Switch",
+  "shortDescription": "Go on your go.",
+  "description": "Fast as a ratata",
+  "thumbnail": "rat.gif",
+  "images": [{
+    "id": "1",
+    "url": "butter.png"
+  }]
+}

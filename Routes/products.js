@@ -26,17 +26,33 @@ router.get('/',(req, res) => {
     })
 })
 
-router.post('/create', (req, res) => {
-    const {owner, helpers, product, assets, address} = req.body;
 
-    const createProduct = new Product({
-        owner: owner,
-        helpers: helpers,
-        product: product,
-        assets: assets,
-        address: address,
-        status: 'LIVE'
+router.post('/read', (req, res) => {
+    const {filter} = req.body;
+
+    Product.findOne({...filter},(error, product)=>{
+        if (error){
+            console.log(error);
+            res.status(500).json({
+                message: 'Internal server error.'
+            })
+        }else if (!product){
+            res.status(500).json({
+                message: 'No product found.'
+            })
+        }else {
+            res.status(500).json({
+                message: 'Success',
+                product: product
+            })
+        }
     })
+})
+
+router.post('/create', (req, res) => {
+    const {product} = req.body;
+
+    const createProduct = new Product({...product})
 
     createProduct.save((error, document)=>{
         if (error){
@@ -65,11 +81,62 @@ router.patch('/updateStatus', (req, res) => {
                 message: 'No such product'
             })
         }else {
-            
+            Product.findOne(filter,(error, product)=>{
+                if (error){
+                    console.log(error)
+                    res.status(500).json({
+                        message: 'Internal server error.'
+                    })
+                }else if (!product){
+                    res.status(400).json({
+                        message: 'Product not found.'
+                    })
+                }else {
+                    res.status(200).json({
+                        message: 'Successfully updated',
+                        product: product
+                    })
+                }
+            })
         }
     })
 })
 
+
+router.put('/update', (req, res) => {
+    const {filter, update} =  req.body;
+
+    Product.findOneAndUpdate(filter, {...update}, (error, doc)=>{
+        if (error){
+            console.log(error)
+            res.status(500).json({
+                message: 'Internal server error.'
+            })
+        }else if (!doc){
+            res.status(400).json({
+                message: 'No product found.'
+            })
+        }else {
+            Product.findOne(filter,(error, product)=>{
+                if (error){
+                    console.log(error)
+                    res.status(500).json({
+                        message: 'Internal server error.'
+                    })
+                }else if (!product){
+                    res.status(400).json({
+                        message: 'No such product'
+                    })
+                }else{
+                    res.status(200).json({
+                        message: 'Product successfully updated.',
+                        product: product,
+                    })
+                }
+            })
+        }
+    })
+})
 
 router.delete('/delete',(req, res) => {
     const {filter} = req.body;
