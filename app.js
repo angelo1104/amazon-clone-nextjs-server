@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser'
 import authRouter from "./Routes/auth.js";
 import stripeRouter from './Routes/stripe.js';
-import productsRouter from './Routes/products.js'
+import productsRouter from './Routes/products.js';
 import db from './mongoDB/connection.js'
 
 //app define

@@ -33,7 +33,13 @@ db.once('open',()=>{
 
             const product = change.fullDocument;
 
-            index.saveObject({...product, objectID: product._id})
+            const algoliaProduct = {
+                name: product.productName,
+                brand: product.brand,
+                description: product.shortDescription
+            }
+
+            index.saveObject({...algoliaProduct, objectID: product._id})
                 .then((object)=>{
                     console.log(object)
                 })
@@ -50,15 +56,29 @@ db.once('open',()=>{
 
             const productID = change.documentKey._id;
 
-            index.partialUpdateObject({...updatedFields, objectID: productID},{
-                createIfNotExists: false
-            })
-                .then((object)=>{
-                    console.log(object)
-                })
-                .catch((error)=>{
+            Product.findOne({_id: productID},(error, product)=>{
+                if (error){
                     console.log(error)
-                })
+                }else if (!product){
+                    console.log('No such product')
+                }else {
+                    const algoliaProduct = {
+                        name: product.productName,
+                        brand: product.brand,
+                        description: product.shortDescription
+                    }
+
+                    index.partialUpdateObject({...algoliaProduct, objectID: productID},{
+                        createIfNotExists: false
+                    })
+                        .then((object)=>{
+                            console.log(object)
+                        })
+                        .catch((error)=>{
+                            console.log(error)
+                        })
+                }
+            })
 
         }else if (change.operationType === 'delete'){
             //do delete stuff
