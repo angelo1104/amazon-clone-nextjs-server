@@ -1,29 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const productSchema = mongoose.Schema({
-    ownerName: String,
-    ownerEmail: String,
-    ownerUid: String,
-    helpers: [
-        {
-            name: String,
-            email: String
-        }
-    ],
-    address: String,
-    status: String,
-    brand:  String,
-    productName: String,
-    shortDescription: String,
-    description: String,
-    thumbnail: String,
-    images: [{
-        id: String,
-        url: String,
-    }],
+  name: String,
+  brand: String,
+  pickupAddress: String,
+  shortDescription: String,
+  description: String,
+  avatar: String,
+  images: [String],
+  price: String,
+  searchTerm: String,
+  ownerEmail: String,
+  ownerUid: String,
+  status: String,
 });
 
-
-const Product = mongoose.model('products', productSchema);
+const Product = mongoose.model("products", productSchema);
 
 export default Product;
