@@ -13,6 +13,7 @@ const productSchema = mongoose.Schema({
   ownerEmail: String,
   ownerUid: String,
   status: String,
+  features: [String],
 });
 
 const Product = mongoose.model("products", productSchema);
