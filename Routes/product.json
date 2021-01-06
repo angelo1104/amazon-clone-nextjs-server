@@ -1,0 +1,17 @@
+{
+  "product": {
+    "name": "Iphone",
+    "brand": "Apple",
+    "pickupAddress": "1 infinite loop",
+    "shortDescription": "Awesome and awesome",
+    "description": "Browse your internet or your apps access it all on your hand just with a nothing.",
+    "avatar": "http://goo.gle",
+    "images": ["https://www.apple.com"],
+    "price": "899",
+    "searchTerm": "smartphone",
+    "features": ["light","fast","powerful"],
+    "ownerEmail": "ishika@gmail.com",
+    "ownerUid": "2",
+    "status": "LIVE"
+  }
+}

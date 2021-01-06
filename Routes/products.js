@@ -10,6 +10,8 @@ import client from "../algolia/algolia.js";
 //router
 const router = express.Router();
 
+const productIndex = client.initIndex('amazon_products')
+
 //middlewares
 
 //mongodb stuff
@@ -127,6 +129,44 @@ router.post("/read", (req, res) => {
     }
   });
 });
+
+router.post("/paginate",async (req, res) => {
+  const {page, query} = req.body;
+
+  const resultsPerPage = 3;
+
+  try{
+    const {hits, nbPages} = await productIndex.search(query, {
+      page: parseInt(page) - 1,
+      hitsPerPage: resultsPerPage
+    });
+
+    if (nbPages > parseInt(page)){
+      //there are pages left means next...
+      res.status(200).json({
+        next: true,
+        hits: hits,
+      })
+    }else if (nbPages === parseInt(page)){
+      //it is last page no next
+      res.status(200).json({
+        next: false,
+        hits: hits
+      })
+    }else if (nbPages < parseInt(page)){
+      //page is greater than number have so send nothing left you consumed all you beautiful young hot sexy girl.
+      res.status(200).json({
+        next: false,
+        hits: hits
+      })
+    }
+  }catch (e) {
+    console.log(e)
+    res.status(500).json({
+      message: "Internal Server Error"
+    })
+  }
+})
 
 router.post("/create", (req, res) => {
   const { product } = req.body;
