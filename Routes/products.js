@@ -122,7 +122,7 @@ router.post("/read", (req, res) => {
         message: "No product found.",
       });
     } else {
-      res.status(500).json({
+      res.status(200).json({
         message: "Success",
         product: product,
       });
@@ -139,6 +139,7 @@ router.post("/paginate", async (req, res) => {
     const { hits, nbPages } = await productIndex.search(query, {
       page: parseInt(page) - 1,
       hitsPerPage: resultsPerPage,
+      typoTolerance: "min",
     });
 
     if (nbPages > parseInt(page)) {
