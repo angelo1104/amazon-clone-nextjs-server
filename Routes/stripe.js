@@ -13,6 +13,27 @@ router.get('/', (req, res) => {
     res.json('Hello Become stripe no square yUPP!')
 })
 
+router.post('/create-payment-intent',async (req, res) => {
+    const {price} = req.body;
+
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: parseFloat(price).toFixed(2) * 100,
+            currency: 'usd'
+        })
+
+        res.status(200).json({
+            message: 'Success',
+            paymentIntent
+        })
+    }catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Internal Server Error."
+        })
+    }
+})
+
 router.post('/create/express-account',async (req, res) => {
     const { email, country } = req.body;
 

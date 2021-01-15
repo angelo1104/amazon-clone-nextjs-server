@@ -9,6 +9,7 @@ import authRouter from "./Routes/auth.js";
 import stripeRouter from './Routes/stripe.js';
 import productsRouter from './Routes/products.js';
 import db from './mongoDB/connection.js'
+import ordersRouter from "./Routes/orders.js";
 
 //app define
 const port = process.env.PORT || 3001
@@ -33,6 +34,8 @@ app.use('/auth', authRouter)
 app.use('/payments', stripeRouter)
 
 app.use('/products', productsRouter)
+
+app.use('/orders', ordersRouter)
 
 //api routes
 app.get('/',(req, res) => {
