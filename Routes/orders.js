@@ -3,7 +3,7 @@ dotenv.config();
 
 //imports
 import express from "express";
-import Order from "../mongoDB/Order";
+import Order from "../mongoDB/Order.js";
 
 //define router
 const router = express.Router();
