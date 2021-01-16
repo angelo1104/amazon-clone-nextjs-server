@@ -4,7 +4,10 @@ const orderSchema = mongoose.Schema({
     products: [{
         productID: String,
         amount: String,
-        price: String
+        price: String,
+        name: String,
+        avatar: String,
+        brand: String
     }],
     country: String,
     state: String,
@@ -12,7 +15,7 @@ const orderSchema = mongoose.Schema({
     zip: String,
     totalPrice: String,
     status: String,
-    customerID: String,
+    customerUid: String,
     paymentIntent: mongoose.Schema.Types.Mixed,
     date: mongoose.Schema.Types.Mixed,
 })
