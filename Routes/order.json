@@ -1,0 +1,18 @@
+{
+  "products": [
+    {
+      "productID": "Hi",
+      "amount": "2",
+      "price": "200"
+    }
+  ],
+  "country": "US",
+  "state": "California",
+  "city": "LA",
+  "zip": "90001",
+  "totalPrice": "400",
+  "status": "NOT DELIVERED",
+  "customerID": "Ishika singh",
+  "paymentIntent": "234",
+  "date": "Saturday 13 July 2021"
+}

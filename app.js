@@ -16,7 +16,7 @@ const port = process.env.PORT || 3001
 const app = express();
 
 //database realtime stuff
-mongoose.connect(process.env.MONGOOSE_URL, {useNewUrlParser: true, useUnifiedTopology:true},(error)=>{
+mongoose.connect(process.env.MONGOOSE_URL, {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false},(error)=>{
     console.log('Error in MongoDB --->',error)
 })
 

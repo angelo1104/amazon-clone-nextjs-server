@@ -11,7 +11,10 @@ const orderSchema = mongoose.Schema({
     city: String,
     zip: String,
     totalPrice: String,
-    status: String
+    status: String,
+    customerID: String,
+    paymentIntent: mongoose.Schema.Types.Mixed,
+    date: mongoose.Schema.Types.Mixed,
 })
 
 const Order = mongoose.model("orders", orderSchema);
