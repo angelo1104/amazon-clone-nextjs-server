@@ -59,7 +59,7 @@ router.post("/read-by-customer", (req, res) => {
   const { customerUid } = req.body;
 
   Order.find({ customerUid })
-    .sort({ date: "ascending" })
+    .sort({ date: "descending" })
     .exec((error, orders) => {
       if (error) {
         console.log(error);
