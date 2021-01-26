@@ -11,9 +11,10 @@ const productSchema = mongoose.Schema({
   price: String,
   searchTerm: String,
   ownerEmail: String,
-  ownerUid: String,
+  ownerUsername: String,
   status: String,
   features: [String],
+  productId: String,
 });
 
 const Product = mongoose.model("products", productSchema);
