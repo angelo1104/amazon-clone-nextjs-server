@@ -56,9 +56,9 @@ router.post("/read", (req, res) => {
 });
 
 router.post("/read-by-customer", (req, res) => {
-  const { customerUid } = req.body;
+  const { customerUsername } = req.body;
 
-  Order.find({ customerUid })
+  Order.find({ customerUsername })
     .sort({ date: "descending" })
     .exec((error, orders) => {
       if (error) {
