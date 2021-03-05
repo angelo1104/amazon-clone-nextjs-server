@@ -169,6 +169,28 @@ router.post("/paginate", async (req, res) => {
   }
 });
 
+router.post("/read-many", (req, res) => {
+  const { filter } = req.body;
+
+  Product.find({ ...filter }, (error, product) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal server error.",
+      });
+    } else if (!product) {
+      res.status(500).json({
+        message: "No product found.",
+      });
+    } else {
+      res.status(200).json({
+        message: "Success",
+        product: product,
+      });
+    }
+  });
+});
+
 router.post("/create", (req, res) => {
   const { product } = req.body;
 
